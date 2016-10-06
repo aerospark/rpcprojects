@@ -941,7 +941,7 @@ void openMenu(char men){
             blits("...", 2, 5, 0);
             blits("...", 2, 6, 0);
             blits("", 2, 7, 0);
-            blits("Anus", 2, 8, 0);
+            blits("NotProfane", 2, 8, 0);
             break;
         case 1:
             console->blitclr = 15;
