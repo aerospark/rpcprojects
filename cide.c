@@ -24,6 +24,7 @@ typedef struct MMU {
     unsigned int rootoffset;
     unsigned int len;
     unsigned char special;
+    unsigned char crystal;
 } MMU;
 MMU* mmu;
 
@@ -892,6 +893,8 @@ void __COM_read1packet(){
 void openMenu(char men){
     short i;
     char e=5;
+    map_console();
+    downvert(0,0,160,64);
     while(e != (char)13){
         __COM_SET_OSL((int)e);
         e++;
@@ -941,7 +944,7 @@ void openMenu(char men){
             blits("...", 2, 5, 0);
             blits("...", 2, 6, 0);
             blits("", 2, 7, 0);
-            blits("NotProfane", 2, 8, 0);
+            blits("Anus", 2, 8, 0);
             break;
         case 1:
             console->blitclr = 15;
@@ -1007,6 +1010,7 @@ void closemenus(){
 void buildAndRun(){
     int e;
     printcons("Clicked build and run!");
+    downvert(0,0,160,64);
     map_modem();
     e=13;
     while(e != (short)56){
@@ -1321,6 +1325,7 @@ void insertNewLineBelow(){
         if(lineLens[5] > (char)6){
             e=lineLens[5]-6;
             console->line = 5;
+            downvert(0,0,160,64);
             memcpy(clmem, console->display + 7, e);
             clmem[e] = 0;
             //printcons(clmem);
@@ -1337,6 +1342,7 @@ void insertNewLineBelow(){
         console->cursor_y = 54;
     }else{
         if(lineLens[55] > (char)6){
+            downvert(0,0,160,64);
             e=lineLens[55]-6;
             console->line = 55;
             memcpy(clmem, console->display + 7, e);
@@ -1498,7 +1504,9 @@ void tryCMD(){
                 mmu->crystal = 33;
                 mmu->crystal = 41;
                 mmu->crystal = cval;
+/*
                 rb_unmap();
+*/  map_console();
                 blits("//Set clock speed!", 7, console->cursor_y, 0); 
                 lineLens[console->cursor_y] = 24;   
             }
@@ -1537,6 +1545,7 @@ void hkey(char c){
             printcons("CTRL+R run!");
             ++console->kb_start;
             e = 5;
+            downvert(0,0,160,64);
             while(e != (char)13){
                 __COM_SET_OSL((int)e);
                 e++;
@@ -2000,7 +2009,7 @@ void handle_connection_init(){
     blits("Username:", 45, 17,0);
     blits("Password:", 45, 20,0);
     console->bgblitclr = 0;
-    blits("aero                                   ", 56, 17,0);
+    blits("steve                                  ", 56, 17,0);
     blits("******                                 ", 56, 20,0);
     console->cursor_y = 14;
     console->cursor_x = 64;
